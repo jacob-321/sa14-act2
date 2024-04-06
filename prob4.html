@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<body style="background-color: wheat;">
+    <h1 style="font-family: 'Courier New', Courier, monospace; text-align: center;">
+        Sign Up</h1>
+
+    <form id="registration-form" style="text-align: center;">
+        <label for="uname"><u>Username</u></label><br>
+        <input type="text" id="uname" name="uname" required><br>
+        <span id="uname-error" class="error"></span><br>
+
+
+        <label for="email"><u>Email</u></label><br>
+        <input type="email" id="email" name="email" required><br>
+        <span id="email-error" class="error"></span><br>
+
+
+        <label for="pwd"><u>Password</u></label><br>
+        <input type="password" id="pwd" name="pwd" required><br>
+        <span id="pwd-error" class="error"></span><br>
+
+        <button type="submit">Register</button>
+    </form>
+
+    <script>
+        const form = document.getElementById('registration-form');
+        const unameInput = document.getElementById('uname');
+        const emailInput = document.getElementById('email');
+        const pwdInput = document.getElementById('pwd');
+        const unameError = document.getElementById('uname-error');
+        const emailError = document.getElementById('email-error');
+        const pwdError = document.getElementById('pwd-error');
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            if (validateForm()) {
+                alert('Your registration was successful!');
+            }
+        });
+
+        function validateForm() {
+            let isValid = true;
+
+            if (unameInput.value.length < 6) {
+                unameError.textContent = 'Username must be at least 6 characters';
+                isValid = false;
+            } else {
+                unameError.textContent = '';
+            }
+
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(emailInput.value)) {
+                emailError.textContent = 'Email does not meet the correct requirements';
+                isValid = false;
+            } else {
+                emailError.textContent = '';
+            }
+
+            const pwdPattern = /^(?=.*[A-Z])(?=.*[0-9]).{8,}$/;
+            if (!pwdPattern.test(pwdInput.value)) {
+                pwdError.textContent = 'Password must be atleast 8 characters long and contain at least one capital letter and one number. ';
+                isValid = false;
+            } else {
+                pwdError.textContent = '';
+            }
+
+            return isValid;
+        }
+    </script>
+</body>
+</html>

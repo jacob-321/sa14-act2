@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JavaScript Animation</title>
+</head>
+<body style="background-color: wheat;">
+    <h1 style="font-family: 'Courier New', Courier, monospace; text-align: center;">
+        JavaScript Animation</h1>
+
+    <div id="square-animation" style="width: 50px; height: 50px; background-color: rebeccapurple; position: relative; left: 0;"></div>
+    <button id="control-button" style ="margin-top: 15px;">Start</button>
+
+    <script>
+        const squareAnimation = document.getElementById('square-animation');
+        const button = document.getElementById('control-button');
+        let isAnimating = false;
+
+        button.addEventListener('click', function() {
+            if (!isAnimating) {
+                squareAnimation.style.transition = 'left 2s linear';
+                squareAnimation.style.left = 'calc(100% - 100px)';
+                isAnimating = true;
+                button.textContent = 'Stop';
+            
+            
+            
+            } else {
+                squareAnimation.style.transition = 'none';
+                squareAnimation.style.left = '0';
+                isAnimating = false;
+                button.textContent = 'Start';
+            }
+        });
+    </script>
+</body>
+</html>

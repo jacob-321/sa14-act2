@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<body style="background-color: wheat;">
+    <h1 style="font-family: 'Courier New', Courier, monospace; text-align: center;">
+        To-do List</h1>
+
+    <form id="task-form" style="text-align: center;">
+        <label for="taskInput">Add a task:</label>
+        <input type="text" id="taskInput" name="taskInput" required><br><br>
+        <button type="submit">Add Task</button>
+    </form>
+
+    <ul id="taskList" style="list-style-type: none; text-align: center;"></ul>
+
+    <script>
+        const taskForm = document.getElementById('task-form');
+        const taskInput = document.getElementById('taskInput');
+        const taskList = document.getElementById('taskList');
+
+        taskForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const newTaskText = taskInput.value.trim();
+            if (newTaskText !== '') {
+                addTask(newTaskText);
+                taskInput.value = '';
+            }
+        });
+
+        function addTask(newTaskText) {
+            const listItem = document.createElement('li');
+            listItem.innerHTML = `
+                <span class="task">${newTaskText}</span>
+                <span class="actions">
+                    <button class="edit">Edit</button>
+                    <button class="delete">Delete</button>
+                </span>
+            `;
+            taskList.appendChild(listItem);
+
+            const editButton = listItem.querySelector('.edit');
+            const deleteButton = listItem.querySelector('.delete');
+
+            editButton.addEventListener('click', function() {
+                const updatedTaskText = prompt('Update task:', newTaskText);
+                if (updatedTaskText !== null && updatedTaskText.trim() !== '') {
+                    listItem.querySelector('.task').textContent = updatedTaskText.trim();
+                }
+            });
+
+            deleteButton.addEventListener('click', function() {
+                taskList.removeChild(listItem);
+            });
+        }
+    </script>
+</body>
+</html>
